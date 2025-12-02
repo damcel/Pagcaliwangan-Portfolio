@@ -1,0 +1,1364 @@
+/* RESET & BASICS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #050505; /* Deepest black as fallback */
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+
+    /* THE GRADIENT MAGIC */
+    /* This creates a soft light starting at 70% to the right, 10% from the top */
+    background-image: radial-gradient(
+        circle at 70% 40%, 
+        #2c2c2c 0%,       /* The center of the light (dark grey) */
+        #1a1a1a 30%,      /* Fading out */
+        #050505 70%       /* Deep black edges */
+    );
+    
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Ensures the glow stays put when you scroll */
+    min-height: 100vh;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+/* UTILITIES */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.accent {
+    color: #4ade80; /* Bright Green */
+    font-family: 'Fira Code', monospace; /* Code font for brackets */
+}
+
+/* HEADER */
+.header {
+    padding: 20px 0;
+    background-color: #111111;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* Desktop remains unchanged */
+.header-right-mobile { display: none; }
+
+/* Burger on right */
+.header-container {
+    display: flex;
+    justify-content: space-between; /* logo left, burger right */
+    align-items: center;
+}
+
+
+/* Burger button styling */
+.burger {
+    display: none; /* hidden on desktop */
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.burger span {
+    height: 3px;
+    width: 25px;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+/* Mobile nav hidden by default */
+.nav-mobile {
+    display: none; /* always hidden on desktop */
+}
+
+.logo {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    color: #888;
+}
+
+.logo strong { color: #fff; }
+
+/* --- UPDATED MENU STYLES START HERE --- */
+
+/* 1. Menu Container */
+.menu { 
+    display: flex; 
+    gap: 30px; 
+    list-style: none; /* Ensure bullets are gone */
+    align-items: center;
+    margin-bottom: 0;
+}
+
+/* 2. The List Item "Lift" Effect */
+.menu li {
+    transition: transform 0.3s ease; /* Smooth lift */
+}
+
+.menu li:hover {
+    transform: translateY(-3px); /* Moves up slightly */
+}
+
+/* 3. The Link Text */
+.menu a { 
+    font-size: 1rem; 
+    font-weight: 600;
+    color: #ccc; 
+    text-decoration: none;
+    position: relative; /* Anchor for the underline */
+    padding-bottom: 5px; 
+    transition: color 0.3s ease; 
+}
+
+/* 4. The Animated Underline (Initially invisible) */
+.menu a::after {
+    content: '';
+    position: absolute;
+    width: 0%;        /* Start hidden */
+    height: 2px;      /* Thickness */
+    bottom: 0;
+    left: 0;
+    background-color: #4ade80; /* Neon Green */
+    transition: width 0.3s ease-in-out; /* Slide effect */
+}
+
+/* 5. Hover Triggers */
+.menu a:hover { 
+    color: #fff; /* Text turns white */
+}
+
+.menu a:hover::after {
+    width: 100%; /* Underline grows */
+}
+
+/* --- HEADER RIGHT SECTION --- */
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* Space between social links and button */
+}
+
+/* --- HEADER RIGHT SECTION --- */
+
+/* Header Entrance Animation */
+.logo, .nav, .header-right {
+    opacity: 0;
+    animation: slideInDown 0.7s ease-out forwards; /* All header elements use this */
+}
+
+/* Specific delays for sequential appearance */
+.logo {
+    animation-delay: 0.1s;
+}
+.nav {
+    animation-delay: 0.3s;
+}
+.header-right {
+    animation-delay: 0.5s;
+}
+
+@keyframes slideInDown {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* --- SOCIAL LINKS (Real Logos) --- */
+
+/* Container */
+.socials {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Base Link Style */
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #ffffff; /* Text starts white */
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+/* Base Image Style */
+.social-link img {
+    width: 20px;
+    height: 20px;
+    /* No filter here! Let the real colors show. */
+    transition: transform 0.3s ease; 
+}
+
+/* --- HOVER EFFECTS --- */
+
+/* Generic Movement (Lifts up) */
+.social-link:hover {
+    transform: translateY(-3px);
+}
+
+/* LINKEDIN SPECIFIC (Blue Brand Color) */
+.li:hover {
+    color: #0a66c2; /* Official LinkedIn Blue */
+    text-shadow: 0 0 10px rgba(10, 102, 194, 0.6); /* Blue Glow */
+}
+
+/* WHATSAPP SPECIFIC (Green Brand Color) */
+.wa:hover {
+    color: #25D366; /* Official WhatsApp Green */
+    text-shadow: 0 0 10px rgba(37, 211, 102, 0.6); /* Green Glow */
+}
+
+/* Optional: Make the image pop slightly on hover */
+.social-link:hover img {
+    filter: brightness(1.2); /* Make the logo slightly brighter */
+}
+
+/* --- CONTACT BUTTON STYLE --- */
+
+.contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    /* Text Styles */
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    
+    /* Size */
+    padding: 10px 24px;
+    
+    /* --- THE GRADIENT BORDER MAGIC --- */
+    border: 2px solid transparent;
+    border-radius: 12px;
+    
+    background: 
+        linear-gradient(#1f1f1f, #1f1f1f) padding-box,
+        linear-gradient(135deg, #4ade80 0%, #ffffff 100%) border-box;
+        
+    /* Glow */
+    box-shadow: 0 0 10px rgba(74, 222, 128, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* --- ICON STYLE --- */
+
+.contact-btn img {
+    width: 18px;
+    height: 18px;
+    transition: all 0.3s ease;
+    
+    /* 1. DEFAULT STATE: Crisp White */
+    /* This makes the icon match the "Contact me" text color perfectly */
+    filter: brightness(0) invert(1);
+}
+
+/* --- HOVER STATE --- */
+
+.contact-btn:hover {
+    /* Background turns Neon Green */
+    background: #4ade80; 
+    
+    /* Text turns Black */
+    color: #000000;
+    
+    /* Glow Effect */
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.6);
+    transform: translateY(-2px);
+}
+
+.contact-btn:hover img {
+    /* 2. HOVER STATE: Icon turns Black */
+    /* Ensures readability on the bright green background */
+    filter: brightness(0); 
+}
+
+/* Bonus: Fade in the stats for a clean finish */
+.stats {
+    opacity: 0;
+    animation: fadeIn 1.5s ease-out forwards;
+    animation-delay: 1s; /* Starts after the main sliding animations are done */
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* HERO SECTION */
+.hero-section {
+    padding: 40px 0;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; /* Text takes slightly more space */
+    align-items: center;
+    gap: 50px;
+}
+
+.greeting { font-size: 1.5rem; font-weight: 600; margin-bottom: 10px; }
+
+.main-title {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    color: #4ade80; /* Green Name */
+}
+
+.main-title .accent { color: #4ade80; margin-right: 10px; }
+
+.subtitle {
+    font-size: 3rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+/* Stats */
+.stats { display: flex; gap: 40px; }
+.stat-number {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+    
+    /* 1. Set the text color to bright green */
+    color: #4ade80; 
+    
+    /* 2. Add the Neon Glow effect */
+    /* format: x-offset y-offset blur-radius color */
+    text-shadow: 0 0 15px rgba(74, 222, 128, 0.6);
+}
+.stat-label {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 5px;
+}
+
+/* Hero Image Area */
+.hero-image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.image-blob {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle at center, #2a2a2a 0%, #111 70%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    
+    /* ADD THIS: effectively cuts off anything outside the circle */
+    overflow: hidden; 
+}
+
+.profile-img {
+    /* CHANGE THIS: Force image to fill the container */
+    width: 100%; 
+    height: 100%; 
+    
+    /* ADD THIS: The magic property */
+    object-fit: cover; 
+    
+    /* OPTIONAL: Focus on the top of the image (good for headshots) */
+    object-position: center top; 
+    
+    z-index: 2;
+}
+
+/* Floating Icons (Simple positioning) */
+.floating-icon {
+    position: absolute;
+    width: 60px;  /* Made slightly bigger since the circle is gone */
+    height: 60px;
+    
+    /* Removed the background circle */
+    background: transparent; 
+    border-radius: 0;
+    box-shadow: none; 
+    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    transition: transform 0.5s ease, filter 0.3s ease;
+    cursor: pointer;
+}
+
+@keyframes side-spin-focus {
+    0% {
+        /* Start: 0 rotation, Scaled up (Focused) */
+        transform: perspective(1000px) rotateY(0deg) scale(1.3);
+    }
+    100% {
+        /* End: 360 rotation, Keeping the Scale */
+        transform: perspective(1000px) rotateY(360deg) scale(1.3);
+    }
+}
+
+.floating-icon:hover {
+    /* 3s = Slow, elegant speed
+        linear = Constant rotation
+        infinite = Never stops 
+    */
+    animation: side-spin-focus 3s linear infinite;
+
+    /* Add the Focus Glow */
+    background: transparent; 
+    border-radius: 0;
+    box-shadow: none; 
+    border: none;
+    
+    /* Bring to front so it doesn't clip behind the profile */
+    z-index: 100;
+}
+
+.floating-icon img { width: 100%; }
+
+.html-5 { top: 60%; left: 10%;}
+.css-logo { bottom: 10%; right: 20%; }
+.js-logo { top: 20%; right: 10%; }
+
+/* HTML5 - Orange Glow */
+.html-5:hover {
+    /* drop-shadow creates a glow that follows the shape of the image */
+    filter: drop-shadow(0 0 15px #e34f26); 
+}
+
+/* CSS3 - Blue Glow */
+.css-logo:hover {
+    filter: drop-shadow(0 0 15px #264de4);
+}
+
+/* JS - Yellow Glow */
+.js-logo:hover {
+    filter: drop-shadow(0 0 15px #f7df1e);
+}
+
+
+/* ABOUT SECTION */
+.about-section {
+    padding: 130px 0 130px 0;
+    background: linear-gradient(to left, /* Direction */ #2c2c2c 30%, /* Right side: Dark Grey (Lighter) */ #111111 70%, /* Middle: Fading point (Halfway) */ #000000 100% /* Left side: Pure Black */);
+    overflow: hidden;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    font-family: 'Fira Code', monospace;
+}
+
+.about-text p {
+    margin-bottom: 20px;
+    color: #ccc;
+    font-size: 1rem;
+}
+
+/* Right Side Cards */
+.about-roles {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Update the cards to blend nicely with the new gradient */
+.role-card {
+    /* Slightly see-through dark grey */
+    background-color: rgba(30, 30, 30, 0.8); 
+    padding: 25px;
+    border-radius: 8px;
+    position: relative;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    backdrop-filter: blur(5px); /* Optional: Adds a cool blur behind the card */
+}
+
+
+.role-card h3 { font-size: 1.2rem; margin-bottom: 5px; color: #fff; }
+.card-link {
+    color: #4ade80;
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+.card-icon {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Fira Code', monospace;
+    font-size: 2rem;
+    color: #4ade80; /* Green brackets */
+    opacity: 0.8;
+}
+
+/* Update div.role-card styling */
+.role-card {
+    /* ... (rest of your original styles) ... */
+    
+    /* Ensure the pointer cursor is visible */
+    cursor: pointer; 
+    
+    /* Allow focus outline for keyboard users (critical for accessibility) */
+    outline: none; 
+    
+    transition: all 0.3s ease;
+}
+
+/* Add focus style for keyboard users */
+.role-card:focus,
+.role-card:hover {
+    /* Subtle glow and lift */
+    border-color: #4ade80;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(74, 222, 128, 0.2);
+}
+
+
+/* KEYFRAMES (Keep these exactly as they are) */
+@keyframes spinClockwise {
+    to { transform: rotateZ(360deg); }
+}
+@keyframes spinCounter {
+    to { transform: rotateZ(-360deg); }
+}
+
+/* 1. APPLY THE SPIN TO THE ENTIRE ICON ELEMENT */
+.card-icon.code-icon {
+    /* Make the element spin clockwise */
+    animation: spinClockwise 3s linear infinite;
+    
+    /* Ensure the icon is displayed block/inline-block for rotation */
+    display: inline-block;
+    
+    /* --- FIX: HIDE THE ORIGINAL TEXT CONTENT --- */
+    font-size: 0; 
+    color: transparent;
+    /* ------------------------------------------- */
+}
+
+/* 2. NESTED CONTENT: Keep the text readable by counter-rotating the content */
+.card-icon.code-icon::before {
+    content: "<\/>"; /* Re-insert the icon content */
+    
+    /* Counter-rotate the content to negate the parent's spin, 
+       but we must use the original green color here, not inherit */
+    animation: spinCounter 3s linear infinite; 
+    
+    /* Set the green color and font size back */
+    color: #4ade80; 
+    font-size: 2rem; 
+    
+    /* Ensure this pseudo-element is visible and correctly positioned */
+    display: block;
+    line-height: 1; 
+}
+
+@keyframes verticalBounce {
+    0% {
+        /* Start position (or end position): slightly down */
+        transform: translateY(-50%) translateY(0px); 
+    }
+    50% {
+        /* Peak position: move up 5 pixels */
+        transform: translateY(-50%) translateY(-5px); 
+    }
+    100% {
+        /* Return to start */
+        transform: translateY(-50%) translateY(0px); 
+    }
+}
+
+/* effects for { } icon */
+.card-icon.brace-icon {
+    /* KEEP: Original vertical centering from your base CSS (transform: translateY(-50%)) */
+    transform: translateY(-10%); 
+
+    /* --- HIDE THE ORIGINAL TEXT CONTENT --- */
+    font-size: 0; 
+    color: transparent;
+    /* Ensure the original height/width is respected */
+    width: auto;
+    height: auto;
+}
+
+/* PSEUDO-ELEMENT: Creates the animated version */
+.card-icon.brace-icon::before {
+    content: "{ }"; 
+    
+    /* Apply the bouncing animation */
+    animation: verticalBounce 2s ease-in-out infinite; 
+    
+    /* Set the color and font size back */
+    color: #4ade80; 
+    font-size: 2rem; 
+    
+    /* Use inline-block to preserve the space it takes up */
+    display: inline-block;
+    
+    /* Remove line-height if it was causing alignment issues */
+    line-height: normal; 
+}
+
+/* === SCROLL ANIMATIONS === */
+.about-text,
+.about-roles {
+    opacity: 0;
+    transform: translateX(0); 
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Start positions */
+.about-text {
+    transform: translateX(-80px);  /* slide from left */
+}
+
+.about-roles {
+    transform: translateX(80px);   /* slide from right */
+}
+
+/* When visible */
+.reveal {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* --- SKILLS SECTION LAYOUT --- */
+
+.skills-section {
+    padding: 70px 0; /* Slightly more top/bottom padding for balance */
+    background-color: transparent; 
+}
+
+/* The Grid Container (2 Columns) */
+.skills-categories-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+    /* UPDATED: Made horizontal and vertical gaps equal for better balance */
+    gap: 60px; 
+    
+    margin-top: 50px;
+}
+
+/* Individual Category Styling */
+.skill-category h3 {
+    color: #ffffff;
+    font-size: 1.2rem; /* Slightly bigger title */
+    font-weight: 600;
+    /* UPDATED: Slightly more space below the title */
+    margin-bottom: 25px; 
+}
+
+/* The Row of Icons */
+.skill-icons-row {
+    display: flex;
+    align-items: center;
+    /* UPDATED: Increased gap between individual icons */
+    gap: 40px; 
+    flex-wrap: wrap;
+}
+
+/* Icon Sizing */
+.skill-icons-row img {
+    /* UPDATED: Made the icons bigger (was 50px) */
+    height: 70px; 
+    cursor: pointer;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+/* Hover Effect for Icons */
+.skill-icons-row img:hover {
+    transform: scale(1.1);
+    /* Added a slight glow on hover to make them pop */
+    filter: drop-shadow(0 0 8px rgba(208, 224, 214, 0.4)); 
+}
+
+/* --- SPECIAL ICON ADJUSTMENTS --- */
+
+/* 1. GITHUB: Add a white/gray background so the black logo shows up */
+.github-icon {
+    background-color: #e5e5e5; /* Light Gray/White */
+    border-radius: 50%;        /* Makes it a circle (Change to 10px for a square) */
+    padding: 2px;              /* Space between the logo and the edge */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* --- SPECIAL ICON ADJUSTMENTS --- */
+.cpanel-icon {
+    height: 40px !important; 
+    margin-top: 10px;        
+}
+
+/* NEW: CANVA ADJUSTMENT */
+.canva-icon {
+    height: 50px !important; /* Smaller than the default 70px */
+    width: auto;
+}
+/* --- PROJECTS SECTION --- */
+.projects-section {
+    padding: 60px 0 100px 0;
+    
+    /* LINEAR GRADIENT: Right to Left */
+    background: linear-gradient(
+        to left,         /* Direction */
+        #2c2c2c 30%,      /* Right side: Dark Grey (Lighter) */
+        #111111 70%,     /* Middle: Fading point (Halfway) */
+        #000000 100%     /* Left side: Pure Black */
+    );
+    
+    overflow: hidden;
+}
+
+/* Ensure the title is clearly visible on this background */
+.projects-section .section-title {
+    position: relative;
+    z-index: 2;
+}
+
+/* --- PROJECTS GRID --- */
+
+.projects-scroller {
+    display: grid;
+    /* This forces exactly 4 equal columns. Change '4' to '3' if you only want 3 cards. */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; /* Space between cards */
+    
+    width: 100%;
+    padding-top: 20px;
+    /* Removed overflow-x: auto since we don't want scrolling anymore */
+}
+
+
+/* --- PROJECT CARD --- */
+
+.project-card {
+    /* Removed min-width: 300px so it can shrink to fit the grid */
+    width: 100%; 
+    height: 200px; /* Fixed height */
+    
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid #333;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: #000;
+}
+
+/* Keep the rest of your card styles (img, overlay, hover) as is */
+.project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.85); 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-card:hover {
+    border-color: #4ade80;
+    transform: translateY(-5px); /* Hop up instead of scale so it doesn't overlap neighbors */
+    box-shadow: 0 5px 20px rgba(74, 222, 128, 0.2);
+    z-index: 10;
+}
+
+/* The Bottom Title Bar (Always visible in your image) */
+.project-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    /* Semi-transparent dark background */
+    background: rgba(0, 0, 0, 0.85); 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-overlay h3 {
+    font-size: 1rem;
+    color: #ccc;
+    font-weight: 500;
+}
+
+.project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+
+.project-overlay h3 {
+    font-size: 1rem;
+    color: #ccc;
+}
+
+.project-link {
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+/* MODAL STYLE */
+.custom-modal {
+    background: #2e2e2e;
+    border-radius: 18px;
+    border: 2px solid #5db647;
+    padding: 25px;
+    color: #fff;
+    max-height: 85vh;
+    overflow: hidden;
+    position: relative;
+
+    /* White + green glow */
+    box-shadow: 
+        0 0 25px rgba(255, 255, 255, 0.18),
+        0 0 35px rgba(0, 210, 106, 0.15);
+}
+
+
+
+/* Scrollable body area */
+.modal-body-custom {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 12px;
+}
+
+/* Scrollbar styling */
+.modal-body-custom::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-body-custom::-webkit-scrollbar-thumb {
+    background: #00d26a;
+    border-radius: 10px;
+}
+
+/* Close button */
+.custom-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    filter: invert(1);
+    opacity: 0.8;
+}
+.custom-close:hover {
+    opacity: 1;
+}
+
+/* Typography styles */
+.modal-section-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.modal-label {
+    margin-top: 25px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.modal-title-green {
+    color: #00d26a;
+    font-size: 20px;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.modal-sub {
+    color: #bbb;
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+
+hr {
+    border: none;
+    border-bottom: 2px solid #e6e6e6;
+    margin: 18px 0;
+}
+
+.modal-project-link {
+    display: inline-block;
+    margin-top: 15px;
+    background: #00d26a;
+    color: #000;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.modal-project-link:hover {
+    background: #00f080;
+    transform: translateY(-2px);
+}
+
+
+/* Certificate Card */
+
+/* Wraps certificate cards horizontally */
+.certificate-wrapper {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+}
+
+.certificate-card {
+    width: 280px;
+    background: #0e0e0e;
+    border: 1px solid #2f2f2f;
+    border-radius: 14px;
+    padding: 12px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    position: relative;
+    margin-top: 10px;
+}
+
+.certificate-card:hover {
+    border-color: #00d26a;
+    box-shadow: 0 0 10px #00d26a44;
+    transform: translateY(-3px);
+}
+
+/* Label above certificate preview */
+.cert-label {
+    font-size: 12px;
+    color: #d9d9d9;
+    display: block;
+    margin-bottom: 8px;
+    opacity: 0.7;
+}
+
+/* Small certificate image preview */
+.certificate-img {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    background: #000;
+    border-radius: 6px;
+}
+
+/* Title */
+.cert-title {
+    margin-top: 10px;
+    color: #fff;
+    font-size: 15px;
+}
+
+/* Keep old modal style but allow scrolling */
+#fullCertificateModal .modal-content {
+    max-height: 90vh;    /* prevent modal from exceeding viewport */
+    overflow-y: auto;    /* vertical scroll if image too tall */
+}
+
+/* Keep your old image style */
+.modal-full-cert {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+}
+
+/* ===== SKILLS SECTION ANIMATIONS ===== */
+.skills-title,
+.skill-category {
+ 
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-top {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.site-footer {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 40px;
+  font-family: sans-serif;
+  font-size: 14px;
+  color: #333;
+  position: relative;
+  opacity: 0; /* start hidden for animation */
+  transform: translateY(50px); /* start slightly below */
+  animation: slideUp 0.8s ease-out forwards; /* trigger animation */
+}
+
+/* Short description centered */
+.footer-text {
+  flex: 1;
+  text-align: center;
+  color: #ccc;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Back to top button */
+#backToTop {
+  display: none; /* hidden initially */
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(#1f1f1f, #1f1f1f) padding-box,
+    linear-gradient(135deg, #4ade80 0%, #ffffff 100%) border-box;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#backToTop svg {
+  width: 24px;
+  height: 24px;
+}
+
+#backToTop:hover {
+  background: #4ade80; 
+  color: #000; 
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.6); 
+  transform: translateY(-2px);
+}
+
+/* Slide-up animation keyframes */
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ================================================
+ANIMATIONS (ADDED FOR SMOOTH ENTRANCE)
+================================================ */
+.hero-text {
+    opacity: 0;
+    animation: slideInLeft 1s ease-out forwards;
+    animation-delay: 0.3s; /* Text slides in slightly after the image container starts */
+}
+
+.hero-image-container {
+    opacity: 0;
+    animation: slideInRight 1s ease-out forwards;
+}
+
+/* Keyframes for sliding the text in from the left */
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Keyframes for sliding the image container in from the right */
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Stagger effect */
+.skill-category:nth-child(1) { transition-delay: 0.1s; }
+.skill-category:nth-child(2) { transition-delay: 0.2s; }
+.skill-category:nth-child(3) { transition-delay: 0.3s; }
+.skill-category:nth-child(4) { transition-delay: 0.4s; }
+
+
+/* ===== PROJECTS SLIDE-IN ANIMATION ===== */
+.projects-title,
+.project-card {
+    opacity: 0;
+    transform: translateX(-80px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Reveal when scrolled */
+.reveal-project {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Stagger delays (1 to 4) */
+.project-card:nth-child(1) { transition-delay: 0.1s; }
+.project-card:nth-child(2) { transition-delay: 0.2s; }
+.project-card:nth-child(3) { transition-delay: 0.3s; }
+.project-card:nth-child(4) { transition-delay: 0.4s; }
+
+/* Hover-fast only affects hover transform, border, shadow */
+.project-card.hover-fast {
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Responsive: On tablets, show 2 per row */
+@media (max-width: 1024px) {
+
+    .container {
+        padding: 0 15px; /* slightly smaller horizontal padding */
+    }
+
+    .hero-grid {
+        grid-template-columns: 1fr; /* Stack text and image */
+        gap: 30px;
+        text-align: center;
+    }
+
+    .hero-image-container {
+        justify-content: center;
+    }
+
+    .main-title {
+        font-size: 3rem;
+    }
+
+    .subtitle {
+        font-size: 2rem;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr; /* Stack left and right content */
+        gap: 40px;
+    }
+
+    .about-roles {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 15px;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .role-card{
+        width: 100%;
+    }
+
+    .projects-scroller {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+/* Responsive: On mobile, show 1 per row */
+@media (max-width: 768px) {
+  .burger {
+        display: flex;
+    }
+
+    /* Hide desktop nav & desktop header-right */
+    .nav ul.menu,
+    .header-right {
+        display: none;
+    }
+
+    /* Mobile nav hidden by default */
+    .nav-mobile {
+        display: none;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 15px;
+        align-items: center;
+    }
+
+    /* When burger is clicked */
+    .nav-mobile.active {
+        display: flex;
+    }
+
+    .nav-mobile ul.menu {
+        flex-direction: column;
+        gap: 15px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+    .header-right-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    .header-right-mobile a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        display: block;
+    }
+
+    /* Burger animation */
+    .burger.active span:nth-child(1) {
+        transform: rotate(45deg) translateY(8px);
+    }
+    .burger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .burger.active span:nth-child(3) {
+        transform: rotate(-45deg) translateY(-8px);
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+
+     .main-title {
+        font-size: 2.5rem;
+    }
+
+    .subtitle {
+        font-size: 1.5rem;
+    }
+
+    .greeting {
+        font-size: 1.2rem;
+    }
+
+    .stats {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+    }
+
+    .skills-categories-grid {
+        grid-template-columns: 1fr;
+        /* On mobile, vertical gap needs to be smaller than horizontal gap */
+        gap: 50px;
+    }
+    
+    /* On smaller screens, slightly reduce icon size and gap again so they fit */
+    .skill-icons-row img {
+        height: 60px;
+    }
+    .skill-icons-row {
+        gap: 30px;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .profile-img {
+        max-width: 250px; /* smaller for mobile */
+    }
+
+    .projects-scroller {
+        grid-template-columns: 1fr; /* Single column */
+        gap: 20px;
+    }
+
+    .project-card {
+        height: auto; /* Adjust height for mobile */
+    }
+
+    .project-img{
+        height: 300px;
+    }
+
+     .certificate-wrapper {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .certificate-card {
+        width: 90%;
+    }
+
+    .site-footer {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 30px 20px;
+    }
+
+    #backToTop {
+        bottom: 20px; /* If fixed */
+        right: 20px;
+        padding: 8px;
+    }
+}
+
+
