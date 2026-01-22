@@ -956,7 +956,7 @@ hr {
 /* Wraps certificate cards horizontally */
 .certificate-wrapper {
     display: flex;
-    gap: 20px;
+    justify-content: space-evenly;
     margin-top: 15px;
     flex-wrap: wrap; /* Allows wrapping on smaller screens */
 }
@@ -995,6 +995,14 @@ hr {
     object-fit: contain;
     background: #000;
     border-radius: 6px;
+}
+
+.certificate-actions {
+    padding: 10px 16px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    z-index: 10;
 }
 
 /* Title */

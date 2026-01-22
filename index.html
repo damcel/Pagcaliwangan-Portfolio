@@ -38,7 +38,7 @@
                         <span>Whatsapp</span>
                     </a>
                 </div>
-                <a class="contact-btn" href="mailto:pagcaliwangan11@gmail.com?subject=Inquiry%20from%20Portfolio">
+                <a class="contact-btn" href="mailto:pagcaliwangan11@gmail.com?subject=Potential%20Collaboration%20from%20Portfolio">
                     <img src="logos/contact-icon.svg" alt="Contact">
                     <span>Contact me</span>
                 </a>
@@ -63,7 +63,7 @@
             <div class="header-right-mobile">
                 <a href="https://www.linkedin.com/in/daniel-pagcaliwangan-6230572b5" target="_blank">Linkedin</a>
                 <a href="https://api.whatsapp.com/send?phone=639452733164">Whatsapp</a>
-                <a href="mailto:pagcaliwangan11@gmail.com?subject=Inquiry%20from%20Portfolio">Contact me</a>
+                <a href="mailto:pagcaliwangan11@gmail.com?subject=Potential%20Collaboration%20from%20Portfolio">Contact me</a>
             </div>
         </nav>
     </header>
@@ -139,7 +139,7 @@
 
 
                     <div 
-                        onclick="window.location.href='mailto:pagcaliwangan11@gmail.com?subject=Inquiry%20from%20Portfolio'" 
+                        onclick="window.location.href='mailto:pagcaliwangan11@gmail.com?subject=Potential%20Collaboration%20from%20Portfolio'" 
                         class="role-card" 
                         role="link" 
                         tabindex="0"
@@ -148,7 +148,7 @@
                         
                         <h3>Get in Touch</h3>
                         
-                        <a href="mailto:pagcaliwangan11@gmail.com?subject=Inquiry%20from%20Portfolio" class="card-link">Hire me!</a>
+                        <a href="mailto:pagcaliwangan11@gmail.com?subject=Potential%20Collaboration%20from%20Portfolio" class="card-link">Hire me!</a>
                     </div>
 
                 </aside>
@@ -315,17 +315,31 @@
                     <div class="certificate-wrapper">
 
                         <!-- Certificate Card 1 -->
-                        <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#fullCertificateModal" data-full="images/intership-certificate.jpg">
+                        <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#fullCertificateModal" data-full="images/intership-certificate.jpg" data-pdf="documents/intership-certificate.pdf">
                             <span class="cert-label">Click or tap the image to view full size</span>
                             <img src="images/intership-certificate.jpg" alt="Certificate" class="certificate-img">
-                            <div class="cert-title">Certificate of Completion</div>
+                            <div class="cert-title">Internsip Certificate of Completion</div>
                         </div>
 
                         <!-- Certificate Card 2 -->
-                        <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#fullCertificateModal" data-full="images/COE - Pagcaliwangan.jpg">
+                        <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#fullCertificateModal" data-full="images/COE-Pagcaliwangan.jpg" data-pdf="documents/COE-Pagcaliwangan.pdf">
                             <span class="cert-label">Click or tap the image to view full size</span>
-                            <img src="images/COE - Pagcaliwangan.jpg" alt="Certificate" class="certificate-img">
+                            <img src="images/COE-Pagcaliwangan.jpg" alt="Certificate" class="certificate-img">
                             <div class="cert-title">Certificate of Employment</div>
+                        </div>
+
+                        <!-- Certificate Card 3 -->
+                        <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#fullCertificateModal" data-full="images/CISCO-networking-2.jpg" data-pdf="documents/CCNA-switching-routing-wireless.pdf">
+                            <span class="cert-label">Click or tap the image to view full size</span>
+                            <img src="images/CISCO-networking-2.jpg" alt="Certificate" class="certificate-img">
+                            <div class="cert-title">(CISCO) Networking 2 Certificate </div>
+                        </div>
+
+                        <!-- Certificate Card 4 -->
+                        <div class="certificate-card" data-bs-toggle="modal" data-bs-target="#fullCertificateModal" data-full="images/CISCO-cyberopsAssociate.jpg" data-pdf="documents/CyberOps-Associate.pdf">
+                            <span class="cert-label">Click or tap the image to view full size</span>
+                            <img src="images/CISCO-cyberopsAssociate.jpg" alt="Certificate" class="certificate-img">
+                            <div class="cert-title">(CISCO) Information Assurance and Security 1 Certificate</div>
                         </div>
 
                     </div>
@@ -340,10 +354,28 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content custom-modal">
                 <button class="btn-close custom-close" data-bs-dismiss="modal"></button>
+
+                <!-- PDF ACTIONS -->
+                <div class="certificate-actions">
+                    <a id="viewPdfBtn"
+                    class="btn btn-sm btn-outline-success"
+                    target="_blank">
+                        View PDF
+                    </a>
+
+                    <a id="downloadPdfBtn"
+                    class="btn btn-sm btn-outline-secondary"
+                    download>
+                        Download PDF
+                    </a>
+                </div>
+
+                <!-- IMAGE -->
                 <img src="" class="modal-full-cert" alt="Full Certificate">
             </div>
         </div>
     </div>
+
 
     <!-- Single Reusable Project Modal for projects -->
     <div class="modal fade" id="projectModal" tabindex="-1">
